@@ -1,0 +1,33 @@
+{
+    "variables": {
+        "scaleway_access_key": "",
+        "scaleway_token": ""
+    },
+    "sensitive-variables": [
+        "scaleway_access_key",
+        "scaleway_token"
+    ],
+    "builders": [
+        {
+            "api_access_key": "{{ user `scaleway_access_key` }}",
+            "api_token": "{{ user `scaleway_token` }}",
+            "type": "scaleway",
+            "image": "d4067cdc-dc9d-4810-8a26-0dae51d7df42",
+            "image_name": "ubunt18.04-docker",
+            "snapshot_name": "ubuntu18.04-docker-snapshot",
+            "region": "par1",
+            "commercial_type": "START1-S",
+            "ssh_private_key_file": "~/.ssh/ssh_scaleway",
+            "ssh_username": "root"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "scripts": [
+                "docker-install.sh",
+                "sudo-configure.sh"
+            ]
+        }
+    ]
+}
